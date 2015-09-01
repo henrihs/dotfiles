@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="default_size_rows" mtime="1441098992" type="int" value="30"/>
+	<entry name="default_size_columns" mtime="1441098992" type="int" value="120"/>
+	<entry name="use_custom_default_size" mtime="1441098992" type="bool" value="true"/>
+	<entry name="login_shell" mtime="1412535215" type="bool" value="false"/>
+	<entry name="cursor_shape" mtime="1412535178" type="string">
+		<stringvalue>block</stringvalue>
+	</entry>
+	<entry name="scrollbar_position" mtime="1441098992" type="string">
+		<stringvalue>hidden</stringvalue>
+	</entry>
+	<entry name="use_theme_colors" mtime="1424950669" type="bool" value="true"/>
+	<entry name="font" mtime="1441098992" type="string">
+		<stringvalue>Monospace 8</stringvalue>
+	</entry>
+	<entry name="use_system_font" mtime="1441098992" type="bool" value="false"/>
+	<entry name="background_type" mtime="1441098992" type="string">
+		<stringvalue>transparent</stringvalue>
+	</entry>
+	<entry name="visible_name" mtime="1441098992" type="string">
+		<stringvalue>Default</stringvalue>
+	</entry>
+	<entry name="foreground_color" mtime="1441098992" type="string">
+		<stringvalue>#000000000000</stringvalue>
+	</entry>
+	<entry name="background_color" mtime="1441098992" type="string">
+		<stringvalue>#FFFFFFFFDDDD</stringvalue>
+	</entry>
+	<entry name="silent_bell" mtime="1441098992" type="bool" value="true"/>
+	<entry name="default_show_menubar" mtime="1441098992" type="bool" value="false"/>
+	<entry name="bold_color" mtime="1441098992" type="string">
+		<stringvalue>#000000000000</stringvalue>
+	</entry>
+	<entry name="palette" mtime="1441098992" type="string">
+		<stringvalue>#2E2E34343636:#FFFF57E457E4:#4F00EAA98BF0:#C4C4A0A00000:#9110C13AFFFF:#C8478F5BFFFF:#5999FFFFC8EC:#D3D3D7D7CFCF:#555557575353:#FFFFB5C1B5C1:#8A8AE2E23434:#FCFCE9E94F4F:#B258E152FFFF:#E016BC95FFFF:#3434E2E2E2E2:#EEEEEEEEECEC</stringvalue>
+	</entry>
+	<entry name="background_darkness" mtime="1441098992" type="float" value="0.93191498517990112"/>
+	<entry name="alternate_screen_scroll" mtime="1441098992" type="bool" value="true"/>
+</gconf>
