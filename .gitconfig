@@ -1,11 +1,17 @@
-[push]
-	default = simple
 [user]
-	email = hsvendsen@gmail.com
 	name = Henrik Heggelund Svendsen
+	email = hhe@dips.no
 [core]
-	editor = vim
+	editor = vim.exe
+[push]
+	default = current
+[color]
+	status = always
+[core]
 	autocrlf = false
+	filemode = false
+	filemode = false
+	filemode = false
 [alias]
 	logtree = log --graph --oneline --decorate --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
 	ls = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
@@ -13,3 +19,6 @@
 	aliases = "!git config -l | grep alias | cut -c 7-"
 	find = "!git ls-files | grep -i"
 	logme = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --author=Heggelund
+
+[credential]
+	helper = !'/cygdrive/C/Users/hhe/AppData/Roaming/GitCredStore/git-credential-winstore.exe'
