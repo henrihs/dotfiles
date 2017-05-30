@@ -45,22 +45,7 @@ fi
 
 function repo()
 {
-    cd /cygdrive/c/Workspaces/Repos
-}
-
-function cli() 
-{
-    cd /cygdrive/c/Workspaces/Repos/InsightEditor-Client/
-}
-
-function srv() 
-{
-    cd /cygdrive/c/Workspaces/Repos/InsightEditor-Server/
-}
-
-function afx()
-{
-    cd /cygdrive/c/Workspaces/Repos/Arena-Framework/
+    cd ~/work/$1
 }
 
 function ..()
@@ -70,7 +55,7 @@ function ..()
 
 function vs()
 {
-    cmd /C start /b "" "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe" $1
+    cmd /C start /b "" "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\devenv.exe" $1
 }
 
 function housekeeping()
@@ -78,9 +63,14 @@ function housekeeping()
     git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d && git remote prune origin
 }
 
+function buildwindow() 
+{
+   cmd /C buildwindow.bat 
+}
+
 function build() 
 {
-    cmd /C buildwindow.bat build
+    cmd /C buildwindow.bat build 
 }
 
 function init() 
@@ -88,7 +78,7 @@ function init()
     cmd /C buildwindow.bat init
 }
 
-function exectest() 
+function testrun() 
 {
     cmd /C buildwindow.bat test
 }
@@ -97,3 +87,51 @@ function fixrepo()
 {
     chmod -f +x *.bat *.exe Build/*.exe Build/*.bat build/*.exe build/*.bat .paket/*.exe
 }
+
+function dbpasswordreset()
+{
+    ~/work/DIPS.PassWordUtility/tools/DIPS.PasswordUtility.exe --password dips1234 --datasource $1 --username DIPS-HHE
+}
+
+function paket() 
+{
+    .paket/paket.exe $@
+}
+
+function gs()
+{
+    git status
+}
+
+function killpaket()
+{
+    ps -W | awk '$0~v,NF=1' v=paket.exe | xargs taskkill /F /pid
+}
+
+function createPR()
+{
+    # Get repository push url
+    local pushurl=`git remote -v 2> /dev/null | sed -e '/(fetch)$/d' -e 's/^origin\s*//' -e 's/\s(push)$//'`
+
+    # Use https instead of ssh
+    local url=`echo $pushurl | sed -e 's/ssh:\/\//http:\/\//g' -e 's/:22/:8080/g'`
+
+    # Add sub URI including branch name (with escaped ampersands)
+    url+="/pullrequests?sourceRef="
+    url+=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/*\s//'`
+    url+="^&targetRef=master^&_a=createnew"
+    
+    cmd /C start $url
+}
+
+function dipsclone()
+{
+    git clone http://vd-tfs03:8080/tfs/DefaultCollection/DIPS/_git/$@
+}
+
+parse_git_branch() 
+{
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+export PS1="\[\033[34m\]\u@\h \[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] \n$ "
+
