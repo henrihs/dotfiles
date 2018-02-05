@@ -1,0 +1,79 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Description/@EntryValue">FactoryPattern</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Text/@EntryValue">$HEADER$namespace $NAMESPACE$&#xD;
+{&#xD;
+  internal class $CLASS$ : I$CLASS$ &#xD;
+  {&#xD;
+	private readonly string m_foo;&#xD;
+&#xD;
+	public $CLASS$(string foo)&#xD;
+	{&#xD;
+	  m_foo = foo;&#xD;
+	}&#xD;
+  }&#xD;
+}</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/CustomProperties/=FileName/@EntryIndexedValue">Product</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/CustomProperties/=Extension/@EntryIndexedValue">cs</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/CustomProperties/=ValidateFileName/@EntryIndexedValue">False</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Applicability/=File/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Scope/=E8F0594528C33E45BBFEC6CFE851095D/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Scope/=E8F0594528C33E45BBFEC6CFE851095D/Type/@EntryValue">InCSharpProjectFile</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Field/=HEADER/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Field/=HEADER/Expression/@EntryValue">fileheader()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Field/=HEADER/InitialRange/@EntryValue">-1</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Field/=HEADER/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Field/=NAMESPACE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Field/=NAMESPACE/Expression/@EntryValue">fileDefaultNamespace()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Field/=NAMESPACE/InitialRange/@EntryValue">-1</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Field/=NAMESPACE/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Field/=CLASS/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Field/=CLASS/Expression/@EntryValue">getFileNameWithoutExtension()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Field/=CLASS/InitialRange/@EntryValue">-1</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Field/=CLASS/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Section/=36CF49776575FC4AA98C7A2327722A48/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Section/=36CF49776575FC4AA98C7A2327722A48/LocationSelectorName/@EntryValue">manual</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Section/=36CF49776575FC4AA98C7A2327722A48/LocationSelectorConfig/@EntryValue">&lt;RelativeConfig File="$NAME$Factory.cs" /&gt;</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Section/=36CF49776575FC4AA98C7A2327722A48/Order/@EntryValue">0</s:Int64>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Section/=36CF49776575FC4AA98C7A2327722A48/SectionPlain/Text/@EntryValue">using System.ComponentModel.Composition;&#xD;
+$HEADER$&#xD;
+namespace $NAMESPACE$&#xD;
+{&#xD;
+  [Export(typeof(I$CLASS$Factory))]&#xD;
+  internal class $CLASS$Factory : I$CLASS$Factory&#xD;
+  {&#xD;
+	private readonly string m_foo;&#xD;
+&#xD;
+  	[ImportingConstructor]&#xD;
+	public $CLASS$Factory(string foo)&#xD;
+	{&#xD;
+	  m_foo = foo;&#xD;
+	}&#xD;
+&#xD;
+	public I$CLASS$ Create()&#xD;
+	{&#xD;
+	  return new $CLASS$(m_foo);&#xD;
+	}&#xD;
+  }&#xD;
+}</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Section/=944BF97E52A6E84E802FF76833FECD6B/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Section/=944BF97E52A6E84E802FF76833FECD6B/LocationSelectorName/@EntryValue">manual</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Section/=944BF97E52A6E84E802FF76833FECD6B/LocationSelectorConfig/@EntryValue">&lt;RelativeConfig File="I$NAME$.cs" /&gt;</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Section/=944BF97E52A6E84E802FF76833FECD6B/Order/@EntryValue">1</s:Int64>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Section/=944BF97E52A6E84E802FF76833FECD6B/SectionPlain/Text/@EntryValue">$HEADER$namespace $NAMESPACE$&#xD;
+{&#xD;
+  internal interface I$CLASS$ {$END$}&#xD;
+}</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Section/=B1F43EA299385E44B344252D777EB175/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Section/=B1F43EA299385E44B344252D777EB175/LocationSelectorName/@EntryValue">manual</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Section/=B1F43EA299385E44B344252D777EB175/LocationSelectorConfig/@EntryValue">&lt;RelativeConfig File="I$NAME$Factory.cs" /&gt;</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Section/=B1F43EA299385E44B344252D777EB175/Order/@EntryValue">2</s:Int64>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C93A7AA91C5BAD4E885144251972AAA4/Section/=B1F43EA299385E44B344252D777EB175/SectionPlain/Text/@EntryValue">$HEADER$namespace $NAMESPACE$&#xD;
+{&#xD;
+  internal interface I$CLASS$Factory&#xD;
+  {&#xD;
+	I$CLASS$ Create();&#xD;
+  }&#xD;
+}</s:String></wpf:ResourceDictionary>
