@@ -43,25 +43,16 @@ fi
 #   INFOPATH="${HOME}/info:${INFOPATH}"
 # fi
 
-function repo()
-{
-    cd /cygdrive/c/Workspaces/Repos
-}
-
-function cli() 
-{
-    cd /cygdrive/c/Workspaces/Repos/InsightEditor-Client/
-}
-
-function srv() 
-{
-    cd /cygdrive/c/Workspaces/Repos/InsightEditor-Server/
-}
-
-function afx()
-{
-    cd /cygdrive/c/Workspaces/Repos/Arena-Framework/
-}
+## only ask for my SSH key passphrase once!
+#use existing ssh-agent if possible
+if [ -f ${HOME}/.ssh-agent ]; then
+   . ${HOME}/.ssh-agent > /dev/null
+fi
+if [ -z "$SSH_AGENT_PID" -o -z "`/usr/bin/ps -a|/usr/bin/egrep \"^[ ]+$SSH_AGENT_PID\"`" ]; then
+   /usr/bin/ssh-agent > ${HOME}/.ssh-agent
+   . ${HOME}/.ssh-agent > /dev/null
+fi
+ssh-add ~/.ssh/id_rsa
 
 function ..()
 {
@@ -70,7 +61,7 @@ function ..()
 
 function vs()
 {
-    cmd /C start /b "" "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe" $1
+    cmd /C start /b "" "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\devenv.exe" $1
 }
 
 function housekeeping()
@@ -80,20 +71,82 @@ function housekeeping()
 
 function build() 
 {
-    cmd /C buildwindow.bat build
+    cd build && scriptcs build.csx -- build && cd ..
 }
 
 function init() 
 {
-    cmd /C buildwindow.bat init
+    cd build && scriptcs build.csx -- init && cd ..
 }
 
-function exectest() 
+function testrun() 
 {
-    cmd /C buildwindow.bat test
+    cd build && scriptcs build.csx -- test && cd ..
+}
+
+function paket()
+{
+    .paket/paket.exe $1
 }
 
 function fixrepo() 
 {
     chmod -f +x *.bat *.exe Build/*.exe Build/*.bat build/*.exe build/*.bat .paket/*.exe
 }
+
+function update_title()
+{
+  if git rev-parse &> /dev/null;
+      then windowTitle=`basename $(git rev-parse --show-toplevel)``parse_git_branch`
+      else windowTitle=`pwd`
+  fi
+  echo -en '\033]2;'$windowTitle'\007'
+}
+
+function cd()
+{
+    [[ -z "$*" ]] && builtin cd $HOME
+    [[ -n "$*" ]] && builtin cd "$*"
+    update_title
+}
+
+function parse_git_branch() 
+{
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+export PS1="\[\033[34m\]\u@\h \[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] \n$ "
+
+
+function dipsclone()
+{
+    git clone ssh://vd-tfs03:22/tfs/DefaultCollection/DIPS/_git/$1
+}
+
+_dipsclone_repo_list()
+{
+    local password
+    password=`openssl rsautl -decrypt -oaep -inkey ~/.ssh/id_rsa -in ~/.ssh/pass.txt.enc`
+
+    curl -s -u hhe:$password --ntlm http://vd-tfs03:8080/tfs/DefaultCollection/_apis/git/repositories/ | jq '.value[].name' | sed 's/"//g' | tr '[:upper:]' '[:lower:]' > ~/.dipsclone_repositories
+}
+
+_dipsclone_complete() 
+{
+    local cur_word type_list
+
+    # COMP_WORDS is an array of words in the current command line.
+    # COMP_CWORD is the index of the current word (the one the cursor is
+    # in). So COMP_WORDS[COMP_CWORD] is the current word.
+    cur_word="${COMP_WORDS[COMP_CWORD]}"
+
+    # Find list of possible repositories
+    type_list=`cat ~/.dipsclone_repositories`
+
+    # COMPREPLY is the array of possible completions, generated with
+    # the compgen builtin.
+    COMPREPLY=( $(compgen -W "${type_list}" -- ${cur_word}) )
+    return 0
+}
+# Register _dipsclone_complete to provide completion for the dipsclone command
+_dipsclone_repo_list
+complete -F _dipsclone_complete dipsclone

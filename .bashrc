@@ -205,3 +205,5 @@ fi
 alias ls="ls --color=auto"
 LS_COLORS="di=1;33;1:ln=36;1:ex=31;1:*~=31;1:*.cs=94:*.xaml=95:*.csproj=96:*.sln=96"
 export LS_COLORS
+
+set completion-ignore-case on
