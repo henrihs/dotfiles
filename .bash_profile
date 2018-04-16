@@ -24,9 +24,9 @@
 # User dependent .bash_profile file
 
 # source the users bashrc if it exists
-if [ -f "${HOME}/.bashrc" ] ; then
-  source "${HOME}/.bashrc"
-fi
+#if [ -f "${HOME}/.bashrc" ] ; then
+#  source "${HOME}/.bashrc"
+#fi
 
 # Set PATH so it includes user's private bin if it exists
 # if [ -d "${HOME}/bin" ] ; then
@@ -43,16 +43,10 @@ fi
 #   INFOPATH="${HOME}/info:${INFOPATH}"
 # fi
 
-## only ask for my SSH key passphrase once!
-#use existing ssh-agent if possible
-if [ -f ${HOME}/.ssh-agent ]; then
-   . ${HOME}/.ssh-agent > /dev/null
-fi
-if [ -z "$SSH_AGENT_PID" -o -z "`/usr/bin/ps -a|/usr/bin/egrep \"^[ ]+$SSH_AGENT_PID\"`" ]; then
-   /usr/bin/ssh-agent > ${HOME}/.ssh-agent
-   . ${HOME}/.ssh-agent > /dev/null
-fi
-ssh-add ~/.ssh/id_rsa
+function repo()
+{
+    cd ~/work/$1
+}
 
 function ..()
 {
@@ -61,7 +55,7 @@ function ..()
 
 function vs()
 {
-    cmd /C start /b "" "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\devenv.exe" $1
+    cmd.exe /C start /b "" "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\devenv.exe" $1
 }
 
 function housekeeping()
@@ -69,24 +63,24 @@ function housekeeping()
     git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d && git remote prune origin
 }
 
+function buildwindow() 
+{
+   cmd.exe /C buildwindow.bat 
+}
+
 function build() 
 {
-    cd build && scriptcs build.csx -- build && cd ..
+    cmd.exe /C buildwindow.bat build 
 }
 
 function init() 
 {
-    cd build && scriptcs build.csx -- init && cd ..
+    cmd.exe /C buildwindow.bat init
 }
 
 function testrun() 
 {
-    cd build && scriptcs build.csx -- test && cd ..
-}
-
-function paket()
-{
-    .paket/paket.exe $1
+    cmd.exe /C buildwindow.bat test
 }
 
 function fixrepo() 
@@ -94,13 +88,44 @@ function fixrepo()
     chmod -f +x *.bat *.exe Build/*.exe Build/*.bat build/*.exe build/*.bat .paket/*.exe
 }
 
-function update_title()
+function dbpasswordreset()
 {
-  if git rev-parse &> /dev/null;
-      then windowTitle=`basename $(git rev-parse --show-toplevel)``parse_git_branch`
-      else windowTitle=`pwd`
-  fi
-  echo -en '\033]2;'$windowTitle'\007'
+    ~/work/DIPS.PassWordUtility/tools/DIPS.PasswordUtility.exe --password dips1234 --datasource $1 --username DIPS-HHE
+}
+
+function paket() 
+{
+    if [ ! -f ".paket/paket.exe" ] ; then
+        ".paket/paket.bootstrapper.exe"
+    fi
+
+    .paket/paket.exe $@
+}
+
+function gs()
+{
+    git status
+}
+
+function killpaket()
+{
+    ps -W | awk '$0~v,NF=1' v=paket.exe | xargs taskkill /F /pid
+}
+
+function createPR()
+{
+    # Get repository push url
+    local pushurl=`git remote -v 2> /dev/null | sed -e '/(fetch)$/d' -e 's/^origin\s*//' -e 's/\s(push)$//'`
+    local teamurl=`echo $pushurl | sed -e 's/\/_git/\/Musk\/_git/g'`
+
+    # Use https instead of ssh
+    local url=`echo $teamurl | sed -e 's/ssh:\/\//http:\/\//g' -e 's/:22/:8080/g'`
+
+    # Add sub URI including branch name (with escaped ampersands)
+    url+="/pullrequests?sourceRef="
+    url+=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/*\s//'`
+    url+="^&targetRef=master^&_a=createnew"
+    cmd.exe /C start $url
 }
 
 function cd()
@@ -110,21 +135,42 @@ function cd()
     update_title
 }
 
+function findgrep()
+{
+    find $0 -name $1 -exec grep $2 {} +;
+}
+
+function certificateinfo()
+{
+    echo | openssl s_client -showcerts -servername $0 -connect $0:443 2>/dev/null | openssl x509 -inform pem -noout -text
+}
+
+function update_title()
+{
+  if git rev-parse &> /dev/null;
+      then windowTitle=`basename $(git rev-parse --show-toplevel)``parse_git_branch`
+      else windowTitle=`pwd`
+  fi
+  echo -en '\033]2;'$windowTitle'\007'
+  # echo -en '\033k'$windowTitle'\033\\' # if the above doesn't work
+}
+
 function parse_git_branch() 
 {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
-export PS1="\[\033[34m\]\u@\h \[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] \n$ "
-
 
 function dipsclone()
 {
-    git clone ssh://vd-tfs03:22/tfs/DefaultCollection/DIPS/_git/$1
+    git clone ssh://vd-tfs03:22/tfs/DefaultCollection/DIPS/_git/$@ && cd $@
 }
 
 _dipsclone_repo_list()
 {
     local password
+    # Save your password in plaintext with 'echo "secret" > pass.txt'
+    # then run 'openssl rsautl -encrypt -oaep -pubin -inkey <(ssh-keygen -e -f ~/.ssh/id_rsa.pub -m PKCS8) -in pass.txt -out pass.txt.enc' 
+    # on your pass.txt, and place the resulting file in the .ssh folder. Remove the plaintext pass.txt file afterwards.
     password=`openssl rsautl -decrypt -oaep -inkey ~/.ssh/id_rsa -in ~/.ssh/pass.txt.enc`
 
     curl -s -u hhe:$password --ntlm http://vd-tfs03:8080/tfs/DefaultCollection/_apis/git/repositories/ | jq '.value[].name' | sed 's/"//g' | tr '[:upper:]' '[:lower:]' > ~/.dipsclone_repositories
@@ -150,3 +196,11 @@ _dipsclone_complete()
 # Register _dipsclone_complete to provide completion for the dipsclone command
 _dipsclone_repo_list
 complete -F _dipsclone_complete dipsclone
+
+alias ls="ls --color=auto"
+LS_COLORS="di=32:ln=36;1:ex=31;1:*~=31;1:*.cs=94:*.xaml=95:*.csproj=96:*.sln=96"
+export LS_COLORS
+
+# For setting bash prompt to 'user@hostname workingdirectory (branchIfGitRepo)
+export PS1="\[\033[34m\]\u@\h \[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] \n$ "
+

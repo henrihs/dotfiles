@@ -1,0 +1,13 @@
+{
+    "omnisharp.path": "C:\\Users\\hhe\\Downloads\\omnisharp-win-x64-net46\\OmniSharp.exe",
+    "sublimeTextKeymap.promptV3Features": true,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.snippetSuggestions": "top",
+    "editor.formatOnPaste": true,
+    "window.zoomLevel": -1,
+    "git.path": "C:\cygwin64\bin",
+    "git.enabled": true,
+    "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "editor.renderWhitespace": "all",
+    "search.useIgnoreFiles": false
+}
