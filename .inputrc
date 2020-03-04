@@ -54,7 +54,7 @@
   #set bell-style visible
 
   # Filename completion/expansion
-  #set completion-ignore-case on
+  set completion-ignore-case on
   #set show-all-if-ambiguous on
 
   # Expand homedir name
